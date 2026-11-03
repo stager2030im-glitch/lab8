@@ -23,12 +23,10 @@ Ejecuta desde la raíz: python ejercicio_2/main.py
 Añade otro ejemplo con print y su resultado esperado en un comentario.
 Haz un commit: "Resuelve ejercicio 2".
 """
+from datos import PRODUCTOS
+from operaciones import generar_reporte
+ 
+print(generar_reporte(PRODUCTOS))
+print(generar_reporte([]))
 
-# TODO: importa PRODUCTOS desde datos.
-# TODO: importa generar_reporte desde operaciones.
-
-# TODO: una vez completadas las importaciones, descomenta estas líneas.
-# print(generar_reporte(PRODUCTOS))
-# print(generar_reporte([]))
-
-# TODO: añade otro ejemplo con print y su resultado esperado en un comentario.
+print(generar_reporte([{"nombre": "mate", "precio": 4, "stock": 0, "categoria": "bebida"}]))
