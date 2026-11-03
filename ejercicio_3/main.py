@@ -30,22 +30,54 @@ Justifica la complejidad de reservar, sin contar la impresion del tablero.
 COMMIT SUGERIDO
 Completa ejercicio 3: reservas y liberaciones
 """
+def _coordenada_valida(puestos, coordenada):
+    fila, columna = coordenada
+    return 0 <= fila < len(puestos) and 0 <= columna < len(puestos[0])
 
 def reservar_puesto(puestos, coordenada):
-    # TODO: implementa esta funcion.
-    pass
-
-
+    if not _coordenada_valida(puestos, coordenada):
+        return False
+    fila, columna = coordenada
+    if puestos[fila][columna] == 0:
+        puestos[fila][columna] = 1
+        return True
+    return False
+    
 def liberar_puesto(puestos, coordenada):
-    # TODO: implementa esta funcion.
-    pass
-
-
+    if not _coordenada_valida(puestos, coordenada):
+        return False
+    fila, columna = coordenada
+    if puestos[fila][columna] == 1:
+        puestos[fila][columna] = 0
+        return True
+    return False
+    
 if __name__ == "__main__":
     puestos = [[1, 0, 1], [0, 0, 1]]
+ 
+    print(reservar_puesto(puestos, (0, 1)))   
+    print(reservar_puesto(puestos, (0, 1)))   
+    print(liberar_puesto(puestos, (1, 2)))    
+    print(liberar_puesto(puestos, (1, 2)))    
+    print(reservar_puesto(puestos, (5, 0)))   
+    print(reservar_puesto(puestos, (-1, 0)))  
+    print(puestos)                            
+ 
+    # Casos propios
+    print(liberar_puesto(puestos, (0, 3)))    
+    print(reservar_puesto(puestos, (1, 0)))   
+    print(puestos) 
 
-    # TODO: escribe las llamadas y muestra los resultados con print.
-    # TODO: agrega al menos un caso propio.
 
 # ANALISIS
-# TODO: responde aqui las preguntas del enunciado.
+# Es necesario recorrer todo el tablero para reservar una coordenada conocida?
+# No. Como ya conocemos la fila y la columna, se accede directamente con
+# puestos[fila][columna]. Las listas de Python permiten acceso por indice en
+# tiempo constante, asi que no hace falta buscar el puesto celda por celda.
+#
+# Complejidad de reservar_puesto: O(1) en tiempo y en espacio extra.
+# Justificacion: solo se hacen un numero fijo de operaciones, sin importar el
+# tamano del tablero: desempaquetar la tupla, comparar los indices con
+# len(puestos) y len(puestos[0]) (len es O(1)), leer una celda y, si esta libre,
+# escribir un 1. No hay ciclos. Recorrer todo el tablero seria O(f * c), con
+# f filas y c columnas, y aqui se evita por completo.
