@@ -27,20 +27,45 @@ Completa ejercicio 1: mapa y puestos disponibles
 """
 
 def crear_mapa(puestos):
-    # TODO: implementa esta funcion.
-    pass
-
+    return {
+        (fila, columna): estado
+        for fila, linea in enumerate(puestos)
+        for columna, estado in enumerate(linea)
+    }
+    
 
 def obtener_disponibles(puestos):
-    # TODO: implementa esta funcion.
-    pass
-
+    return {
+        (fila, columna)
+        for fila, linea in enumerate(puestos)
+        for columna, estado in enumerate(linea)
+        if estado == 0
+    }
+    
 
 if __name__ == "__main__":
     puestos = [[1, 0, 1], [0, 0, 1]]
 
-    # TODO: escribe las llamadas y muestra los resultados con print.
-    # TODO: agrega al menos un caso propio.
+    mapa = crear_mapa(puestos)
+    disponibles = obtener_disponibles(puestos)
+    print("Mapa completo:", mapa)
+    print("Disponibles:", disponibles)
+    print("Estado de (1, 2):", mapa[(1, 2)])  # debe ser 1
+    print("Disponibles correctos:", disponibles == {(0, 1), (1, 0), (1, 1)})
+    print("Tablero sin modificar:", puestos == [[1, 0, 1], [0, 0, 1]])
+
+    #caso propio:
+    propio = [[0, 1, 0], [1, 1, 0], [0, 0, 1]]
+    mapa_propio = crear_mapa(propio)
+    disponibles_propio = obtener_disponibles(propio)
+    print("\nMapa propio:", mapa_propio)
+    print("Disponibles propios:", disponibles_propio)
+    print("Estado de (2, 2):", mapa_propio[(2, 2)])  # debe ser 1
+    print("Disponibles correctos:",
+          disponibles_propio == {(0, 0), (0, 2), (1, 2), (2, 0), (2, 1)})
 
 # ANALISIS
-# TODO: responde aqui las preguntas del enunciado.
+#1. En el ejemplo (2 filas x 3 columnas) se revisan 2 * 3 = 6 celdas,
+#    porque hay que mirar el estado de cada una para saber si esta libre.
+# 2. Para f filas y c columnas se revisan f * c celdas, es decir O(f * c).
+# 3. Para n filas y n columnas se revisan n * n = n^2 celdas, es decir O(n^2).
